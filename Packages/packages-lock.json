@@ -30,7 +30,7 @@
         "com.unity.inputsystem": "1.0.0",
         "com.unity.textmeshpro": "3.0.0"
       },
-      "hash": "22b4f5d5d7bd68e0c0730cec0b7499d8b2ec0a33"
+      "hash": "71ed16f909236f507d740b3dda5637434b5cfc5b"
     },
     "com.nickmaltbie.openkcc.netcode": {
       "version": "git+https://github.com/nicholas-maltbie/OpenKCC#release/netcode/latest",
@@ -46,7 +46,7 @@
         "com.unity.netcode.gameobjects": "1.1.0",
         "com.unity.textmeshpro": "3.0.0"
       },
-      "hash": "0d9a13936138ebeb6f27e485f5424130338629ab"
+      "hash": "018522f73f9e70ae2dea2afb81cfb8aecc956c06"
     },
     "com.nickmaltbie.recolorshaderunity": {
       "version": "1.0.0",
