@@ -18,19 +18,7 @@ public class MoleKCC : MonoBehaviour
     private Vector3 Velocity;
 
     [SerializeField]
-    private bool useTestInput = false;
-
-    [SerializeField]
-    private Vector2 testInput;
-
-    [SerializeField]
-    private Vector3 gravity = Physics.gravity;
-
-    [SerializeField]
     private float RunSpeed = 5f;
-
-    [SerializeField]
-    private float JumpForce = 5f;
 
     [SerializeField]
     private InputActionReference movementReference;
@@ -71,8 +59,16 @@ public class MoleKCC : MonoBehaviour
     /// ground.</returns>
     public Vector3 GetDesiredMovement()
     {
+
+        Vector3 input2D = playerMovement.ReadValue<Vector2>();
+
         var moveDir = Quaternion.FromToRotation(Vector3.up, _movementEngine.GroundedState.SurfaceNormal);
-        Vector3 rotatedMovement = moveDir * (transform.forward * playerMovement.ReadValue<Vector2>());
+        Debug.Log(_movementEngine.GroundedState.SurfaceNormal);
+
+        // var playerYaw = Quaternion.Euler(0, transform.eulerAngles.y, 0);
+        var playerYaw = Quaternion.Euler(0, 0, 0);
+
+        Vector3 rotatedMovement = moveDir * (playerYaw * new Vector3(input2D.x, 0, input2D.y));
         float speed = RunSpeed;
         Vector3 scaledMovement = rotatedMovement * speed;
         return scaledMovement;
@@ -82,13 +78,12 @@ public class MoleKCC : MonoBehaviour
     {
         GetComponent<Rigidbody>().isKinematic = true;
 
-        // jumpAction.ApplyJumpIfPossible(_movementEngine.GroundedState);
         _movementEngine.MovePlayer(
         GetDesiredMovement() * Time.fixedDeltaTime,
                 Velocity * Time.fixedDeltaTime);
-        // UpdateGroundedState();
 
-            // Apply gravity if needed
+
+       // Apply gravity if needed
        if (_movementEngine.GroundedState.Falling || _movementEngine.GroundedState.Sliding)
        {
            Velocity += Physics.gravity * Time.fixedDeltaTime;
@@ -98,8 +93,8 @@ public class MoleKCC : MonoBehaviour
            Velocity = Vector3.zero;
        }
 
+       // Update Relative Up
        relativeUp = _movementEngine.Up;
-
 
         if (_movementEngine.GroundedState.StandingOnGround)
         {
